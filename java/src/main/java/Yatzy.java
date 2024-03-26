@@ -134,75 +134,44 @@ public class Yatzy {
 
     public static int smallStraight(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[dice1-1] += 1;
-        tallies[dice2-1] += 1;
-        tallies[dice3-1] += 1;
-        tallies[dice4-1] += 1;
-        tallies[dice5-1] += 1;
-        if (tallies[0] == 1 &&
-            tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1)
-            return 15;
-        return 0;
+        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        for(int i = 1; i < 6 ; i++){
+            if(!dices.contains(i)){
+                return 0;
+            }
+        }
+        return 15;
     }
 
     public static int largeStraight(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[dice1-1] += 1;
-        tallies[dice2-1] += 1;
-        tallies[dice3-1] += 1;
-        tallies[dice4-1] += 1;
-        tallies[dice5-1] += 1;
-        if (tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1
-            && tallies[5] == 1)
-            return 20;
-        return 0;
+        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        for(int i = 2; i < 7 ; i++){
+            if(!dices.contains(i)){
+                return 0;
+            }
+        }
+        return 20;
     }
 
     public static int fullHouse(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        int[] tallies;
-        boolean _2 = false;
-        int i;
-        int _2_at = 0;
-        boolean _3 = false;
-        int _3_at = 0;
+        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        
+        int twoOccurrenceSum = dices.stream()
+            .filter(i -> Collections.frequency(dices, i) == 2)
+            .map(integer -> integer * 2)
+            .findFirst().orElse(0);
 
+        int threeOccurrenceSum = dices.stream()
+            .filter(i -> Collections.frequency(dices, i) == 3)
+            .map(integer -> integer * 3)
+            .findFirst().orElse(0);
 
-
-
-        tallies = new int[6];
-        tallies[dice1-1] += 1;
-        tallies[dice2-1] += 1;
-        tallies[dice3-1] += 1;
-        tallies[dice4-1] += 1;
-        tallies[dice5-1] += 1;
-
-        for (i = 0; i != 6; i += 1)
-            if (tallies[i] == 2) {
-                _2 = true;
-                _2_at = i+1;
-            }
-
-        for (i = 0; i != 6; i += 1)
-            if (tallies[i] == 3) {
-                _3 = true;
-                _3_at = i+1;
-            }
-
-        if (_2 && _3)
-            return _2_at * 2 + _3_at * 3;
-        else
+        if(twoOccurrenceSum == 0 && threeOccurrenceSum == 0){
             return 0;
+        }
+        return twoOccurrenceSum + threeOccurrenceSum;
     }
 }
 
