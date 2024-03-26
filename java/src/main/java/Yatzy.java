@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Yatzy {
     protected int[] dice;
@@ -46,69 +47,48 @@ public class Yatzy {
     }
 
     public static int ones(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        List<Integer> dices = Arrays.asList(dice1,dice2,dice3,dice4,dice5);
-        return countNumberOfOccurrenceInIntList(dices, 1);
+        return calculateSumOfSearchedNumberInIntList(getIntStream(dice1, dice2, dice3, dice4, dice5), 1);
+    }
+
+    private static IntStream getIntStream(int... dices) {
+        return Arrays.stream(dices);
     }
 
     /**
-     * Count the presence of a given value in a list of integer
+     * Calculate th sum of a given value in a list of integer
      * @param dices the list of integer to check
      * @param value the searched value
-     * @return the number of occurrence of the given value int the given list
+     * @return the sum of the given value int the given list
      */
-    private static int countNumberOfOccurrenceInIntList(List<Integer> dices, int value) {
-        return (int)dices.stream().filter(i -> i == value).count();
+    private static int calculateSumOfSearchedNumberInIntList(IntStream dices, int value) {
+        return dices.filter(i -> i == value).reduce(0, Integer::sum);
     }
 
     public static int twos(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        int sum = 0;
-        if (dice1 == 2) sum += 2;
-        if (dice2 == 2) sum += 2;
-        if (dice3 == 2) sum += 2;
-        if (dice4 == 2) sum += 2;
-        if (dice5 == 2) sum += 2;
-        return sum;
+        IntStream dices = getIntStream(dice1,dice2,dice3,dice4,dice5);
+        return  calculateSumOfSearchedNumberInIntList(dices, 2);
     }
     public static int threes(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        int s;    
-        s = 0;
-        if (dice1 == 3) s += 3;
-        if (dice2 == 3) s += 3;
-        if (dice3 == 3) s += 3;
-        if (dice4 == 3) s += 3;
-        if (dice5 == 3) s += 3;
-        return s;
+        IntStream dices = getIntStream(dice1,dice2,dice3,dice4,dice5);
+        return  calculateSumOfSearchedNumberInIntList(dices, 3);
     }
 
     public int fours()
     {
-        int sum;    
-        sum = 0;
-        for (int at = 0; at != 5; at++) {
-            if (dice[at] == 4) {
-                sum += 4;
-            }
-        }
-        return sum;
+        IntStream dices = getIntStream(dice);
+        return  calculateSumOfSearchedNumberInIntList(dices, 4);
     }
 
     public int fives()
     {
-        int s = 0;
-        int i;
-        for (i = 0; i < dice.length; i++) 
-            if (dice[i] == 5)
-                s = s + 5;
-        return s;
+        IntStream dices = getIntStream(dice);
+        return  calculateSumOfSearchedNumberInIntList(dices, 5);
     }
 
     public int sixes()
     {
-        int sum = 0;
-        for (int at = 0; at < dice.length; at++) 
-            if (dice[at] == 6)
-                sum = sum + 6;
-        return sum;
+        IntStream dices = getIntStream(dice);
+        return  calculateSumOfSearchedNumberInIntList(dices, 6);
     }
 
     public static int scorePair(int dice1, int dice2, int dice3, int dice4, int dice5)
