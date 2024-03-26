@@ -46,15 +46,18 @@ public class Yatzy {
     }
 
     public static int ones(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        int sum = 0;
-        if (dice1 == 1) sum++;
-        if (dice2 == 1) sum++;
-        if (dice3 == 1) sum++;
-        if (dice4 == 1) sum++;
-        if (dice5 == 1) 
-            sum++;
+        List<Integer> dices = Arrays.asList(dice1,dice2,dice3,dice4,dice5);
+        return countNumberOfOccurrenceInIntList(dices, 1);
+    }
 
-        return sum;
+    /**
+     * Count the presence of a given value in a list of integer
+     * @param dices the list of integer to check
+     * @param value the searched value
+     * @return the number of occurrence of the given value int the given list
+     */
+    private static int countNumberOfOccurrenceInIntList(List<Integer> dices, int value) {
+        return (int)dices.stream().filter(i -> i == value).count();
     }
 
     public static int twos(int dice1, int dice2, int dice3, int dice4, int dice5) {
