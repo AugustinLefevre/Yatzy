@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -93,68 +94,42 @@ public class Yatzy {
 
     public static int scorePair(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        int[] counts = new int[6];
-        counts[dice1-1]++;
-        counts[dice2-1]++;
-        counts[dice3-1]++;
-        counts[dice4-1]++;
-        counts[dice5-1]++;
-        int at;
-        for (at = 0; at != 6; at++)
-            if (counts[6-at-1] >= 2)
-                return (6-at)*2;
-        return 0;
+        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        return dices.stream()
+            .filter(i -> Collections.frequency(dices, i) > 1)
+            .map(integer -> integer * 2)
+            .max(Integer::compareTo)
+            .orElse(0);
     }
 
     public static int twoPair(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        int[] counts = new int[6];
-        counts[dice1-1]++;
-        counts[dice2-1]++;
-        counts[dice3-1]++;
-        counts[dice4-1]++;
-        counts[dice5-1]++;
-        int n = 0;
-        int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (counts[6-i-1] >= 2) {
-                n++;
-                score += (6-i);
-            }        
-        if (n == 2)
-            return score * 2;
-        else
-            return 0;
+        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        return dices.stream()
+            .filter(i -> Collections.frequency(dices, i) >= 2)
+            .distinct()
+            .map(integer -> integer * 2)
+            .reduce(0, Integer::sum);
     }
 
-    public static int fourOfAKind(int _1, int _2, int dice3, int dice4, int dice5)
+    public static int fourOfAKind(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[_1-1]++;
-        tallies[_2-1]++;
-        tallies[dice3-1]++;
-        tallies[dice4-1]++;
-        tallies[dice5-1]++;
-        for (int i = 0; i < 6; i++)
-            if (tallies[i] >= 4)
-                return (i+1) * 4;
-        return 0;
+        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        return dices.stream()
+            .filter(i -> Collections.frequency(dices, i) >= 4)
+            .map(integer -> integer * 4)
+            .findFirst()
+            .orElse(0);
     }
 
     public static int threeOfAKind(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        int[] t;
-        t = new int[6];
-        t[dice1-1]++;
-        t[dice2-1]++;
-        t[dice3-1]++;
-        t[dice4-1]++;
-        t[dice5-1]++;
-        for (int i = 0; i < 6; i++)
-            if (t[i] >= 3)
-                return (i+1) * 3;
-        return 0;
+        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        return dices.stream()
+            .filter(i -> Collections.frequency(dices, i) >= 3)
+            .map(integer -> integer * 3)
+            .findFirst()
+            .orElse(0);
     }
 
     public static int smallStraight(int dice1, int dice2, int dice3, int dice4, int dice5)

@@ -94,6 +94,8 @@ public class YatzyTest {
         assertEquals(9, Yatzy.threeOfAKind(3,3,3,4,5));
         assertEquals(15, Yatzy.threeOfAKind(5,3,5,4,5));
         assertEquals(9, Yatzy.threeOfAKind(3,3,3,3,5));
+        assertEquals(9, Yatzy.threeOfAKind(3,3,3,2,4));
+        assertEquals(9, Yatzy.threeOfAKind(3,3,3,3,3));
     }
 
     @Test
@@ -107,12 +109,6 @@ public class YatzyTest {
         int expected = 0;
         int actual = Yatzy.fourOfAKind(1, 2, 3, 4, 5);
         assertEquals(expected, actual);
-    }
-
-    @Test
-    public void three_of_a_knd() {
-        assertEquals(9, Yatzy.threeOfAKind(3,3,3,2,4));
-        assertEquals(9, Yatzy.threeOfAKind(3,3,3,3,3));
     }
 
     @Test
