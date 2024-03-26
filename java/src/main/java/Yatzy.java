@@ -1,25 +1,26 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Yatzy {
     protected int[] dice;
 
     public Yatzy(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        dice = new int[5];
-        dice[0] = dice1;
-        dice[1] = dice2;
-        dice[2] = dice3;
-        dice[3] = dice4;
-        dice[4] = dice5;
+        dice = new int[]{dice1, dice2, dice3, dice4, dice5};
     }
 
     public static int chance(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        int total = 0;
-        total += dice1;
-        total += dice2;
-        total += dice3;
-        total += dice4;
-        total += dice5;
-        return total;
+       return calulateIntegerListTotal(Arrays.asList(dice1, dice2, dice3, dice4, dice5));
+    }
+
+    /**
+     * Calculate the total for a given integer list
+     * @param dices a list of integer
+     * @return the sum of the values given in the list
+     */
+    private static int calulateIntegerListTotal(List<Integer> dices) {
+        return dices.stream().reduce(0, Integer::sum);
     }
 
     public static int yatzy(int... dice)
