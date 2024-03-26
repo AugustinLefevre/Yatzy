@@ -13,7 +13,7 @@ public class Yatzy {
 
     public static int chance(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-       return calulateIntegerListTotal(Arrays.asList(dice1, dice2, dice3, dice4, dice5));
+       return calculateIntegerArrayTotal(dice1, dice2, dice3, dice4, dice5);
     }
 
     /**
@@ -21,8 +21,9 @@ public class Yatzy {
      * @param dices a list of integer
      * @return the sum of the values given in the list
      */
-    private static int calulateIntegerListTotal(List<Integer> dices) {
-        return dices.stream().reduce(0, Integer::sum);
+    private static int calculateIntegerArrayTotal(int... dices) {
+        return Arrays.stream(dices)
+            .reduce(0, Integer::sum);
     }
 
     public static int yatzy(int... dices)
@@ -44,11 +45,13 @@ public class Yatzy {
      * @return true if the value is present in the array
      */
     private static boolean intArrayContains(int[] intArray, int value) {
-        return Arrays.stream(intArray).anyMatch(v -> v == value);
+        return Arrays.stream(intArray)
+            .anyMatch(v -> v == value);
     }
 
     public static int ones(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        return calculateSumOfSearchedNumberInIntList(getIntStream(dice1, dice2, dice3, dice4, dice5), 1);
+        IntStream dices = getIntStream(dice1, dice2, dice3, dice4, dice5);
+        return calculateSumOfSearchedNumberInIntList(dices, 1);
     }
 
     private static IntStream getIntStream(int... dices) {
@@ -62,7 +65,9 @@ public class Yatzy {
      * @return the sum of the given value int the given list
      */
     private static int calculateSumOfSearchedNumberInIntList(IntStream dices, int value) {
-        return dices.filter(i -> i == value).reduce(0, Integer::sum);
+        return dices
+            .filter(i -> i == value)
+            .reduce(0, Integer::sum);
     }
 
     public static int twos(int dice1, int dice2, int dice3, int dice4, int dice5) {
@@ -157,7 +162,7 @@ public class Yatzy {
     public static int fullHouse(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
         List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
-        
+
         int twoOccurrenceSum = dices.stream()
             .filter(i -> Collections.frequency(dices, i) == 2)
             .map(integer -> integer * 2)

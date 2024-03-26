@@ -1,33 +1,40 @@
 import org.junit.*;
+
 import static org.junit.Assert.*;
 
 public class YatzyTest {
 
     @Test
-    public void chance_scores_sum_of_all_dice() {
+    public void givenSomeValue_whenChance_thenReturnTheSumOfAllGivenValues() {
         int expected = 15;
         int actual = Yatzy.chance(2,3,4,5,1);
         assertEquals(expected, actual);
         assertEquals(16, Yatzy.chance(3,3,4,5,1));
     }
 
-    @Test public void yatzy_scores_50() {
+    @Test public void givenFiveEqualsValue_whenYatzy_thenReturn50() {
         int expected = 50;
         int actual = Yatzy.yatzy(4,4,4,4,4);
         assertEquals(expected, actual);
-        assertEquals(50, Yatzy.yatzy(6,6,6,6,6));
-        assertEquals(0, Yatzy.yatzy(6,6,6,6,3));
+        actual =  Yatzy.yatzy(6,6,6,6,6);
+        assertEquals(expected, actual);
     }
 
-    @Test public void test_1s() {
-        assertTrue(Yatzy.ones(1,2,3,4,5) == 1);
+    @Test public void givenFiveNonEqualsValue_whenYatzy_thenReturn0() {
+        int expected = 0;
+        int actual =  Yatzy.yatzy(6,6,6,6,3);
+        assertEquals(expected, actual);
+    }
+
+    @Test public void test_ones() {
+        assertEquals(1, Yatzy.ones(1, 2, 3, 4, 5));
         assertEquals(2, Yatzy.ones(1,2,1,4,5));
         assertEquals(0, Yatzy.ones(6,2,2,4,5));
         assertEquals(4, Yatzy.ones(1,2,1,1,1));
     }
 
     @Test
-    public void test_2s() {
+    public void test_twos() {
         assertEquals(4, Yatzy.twos(1,2,3,2,6));
         assertEquals(10, Yatzy.twos(2,2,2,2,2));
     }
@@ -39,7 +46,7 @@ public class YatzyTest {
     }
 
     @Test
-    public void fours_test() 
+    public void test_fours()
     {
         assertEquals(12, new Yatzy(4,4,4,5,5).fours());
         assertEquals(8, new Yatzy(4,4,5,5,5).fours());
@@ -47,21 +54,21 @@ public class YatzyTest {
     }
 
     @Test
-    public void fives() {
+    public void test_fives() {
         assertEquals(10, new Yatzy(4,4,4,5,5).fives());
         assertEquals(15, new Yatzy(4,4,5,5,5).fives());
         assertEquals(20, new Yatzy(4,5,5,5,5).fives());
     }
 
     @Test
-    public void sixes_test() {
+    public void test_sixes() {
         assertEquals(0, new Yatzy(4,4,4,5,5).sixes());
         assertEquals(6, new Yatzy(4,4,6,5,5).sixes());
         assertEquals(18, new Yatzy(6,5,6,6,5).sixes());
     }
 
     @Test
-    public void one_pair() {
+    public void test_onePair() {
        assertEquals(6, Yatzy.scorePair(3,4,3,5,6));
        assertEquals(10, Yatzy.scorePair(5,3,3,3,5));
        assertEquals(12, Yatzy.scorePair(5,3,6,6,5));
@@ -76,7 +83,7 @@ public class YatzyTest {
 
 
     @Test
-    public void two_Pair() {
+    public void test_twoPair() {
         assertEquals(16, Yatzy.twoPair(3,3,5,4,5));
         assertEquals(16, Yatzy.twoPair(3,3,5,5,5));
     }
@@ -89,7 +96,7 @@ public class YatzyTest {
     }
 
     @Test
-    public void three_of_a_kind() 
+    public void test_threeOfAKind()
     {
         assertEquals(9, Yatzy.threeOfAKind(3,3,3,4,5));
         assertEquals(15, Yatzy.threeOfAKind(5,3,5,4,5));
@@ -99,7 +106,7 @@ public class YatzyTest {
     }
 
     @Test
-    public void four_of_a_knd() {
+    public void test_fourOfAKind() {
         assertEquals(12, Yatzy.fourOfAKind(3,3,3,3,5));
         assertEquals(20, Yatzy.fourOfAKind(5,5,5,4,5));
     }
@@ -119,21 +126,21 @@ public class YatzyTest {
     }
 
     @Test
-    public void smallStraight() {
+    public void test_smallStraight() {
         assertEquals(15, Yatzy.smallStraight(1,2,3,4,5));
         assertEquals(15, Yatzy.smallStraight(2,3,4,5,1));
         assertEquals(0, Yatzy.smallStraight(1,2,2,4,5));
     }
 
     @Test
-    public void largeStraight() {
+    public void test_largeStraight() {
         assertEquals(20, Yatzy.largeStraight(6,2,3,4,5));
         assertEquals(20, Yatzy.largeStraight(2,3,4,5,6));
         assertEquals(0, Yatzy.largeStraight(1,2,2,4,5));
     }
 
     @Test
-    public void fullHouse() {
+    public void test_fullHouse() {
         assertEquals(18, Yatzy.fullHouse(6,2,2,2,6));
         assertEquals(7, Yatzy.fullHouse(2,1,1,1,2));
         assertEquals(0, Yatzy.fullHouse(2,3,4,5,6));
