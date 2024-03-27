@@ -4,16 +4,26 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class Yatzy {
-    protected int[] dice;
+    protected int[] dices;
 
     public Yatzy(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        dice = new int[]{dice1, dice2, dice3, dice4, dice5};
+        dices = new int[]{dice1, dice2, dice3, dice4, dice5};
     }
 
+    public void setDices(int[] dices){
+        this.dices = dices;
+    }
+
+    @Deprecated
     public static int chance(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
        return calculateIntegerArrayTotal(dice1, dice2, dice3, dice4, dice5);
+    }
+
+    public int chance()
+    {
+        return calculateIntegerArrayTotal(dices);
     }
 
     /**
@@ -81,19 +91,19 @@ public class Yatzy {
 
     public int fours()
     {
-        IntStream dices = getIntStream(dice);
+        IntStream dices = getIntStream(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 4);
     }
 
     public int fives()
     {
-        IntStream dices = getIntStream(dice);
+        IntStream dices = getIntStream(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 5);
     }
 
     public int sixes()
     {
-        IntStream dices = getIntStream(dice);
+        IntStream dices = getIntStream(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 6);
     }
 

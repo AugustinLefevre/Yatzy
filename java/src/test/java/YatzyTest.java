@@ -5,11 +5,20 @@ import static org.junit.Assert.*;
 public class YatzyTest {
 
     @Test
-    public void givenSomeValue_whenChance_thenReturnTheSumOfAllGivenValues() {
+    public void givenSomeValue_whenStaticChance_thenReturnTheSumOfAllGivenValues() {
         int expected = 15;
         int actual = Yatzy.chance(2,3,4,5,1);
         assertEquals(expected, actual);
         assertEquals(16, Yatzy.chance(3,3,4,5,1));
+    }
+
+    @Test
+    public void givenSomeValue_whenChance_thenReturnTheSumOfAllGivenValues() {
+        int expected = 15;
+        Yatzy yatzy = new Yatzy(2,3,4,5,1);
+        assertEquals(expected, yatzy.chance());
+        yatzy.setDices(new int[]{3,3,4,5,1});
+        assertEquals(16, yatzy.chance());
     }
 
     @Test public void givenFiveEqualsValue_whenYatzy_thenReturn50() {
