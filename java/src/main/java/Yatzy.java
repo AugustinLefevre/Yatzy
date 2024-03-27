@@ -11,14 +11,11 @@ public class Yatzy {
         dices = new int[]{dice1, dice2, dice3, dice4, dice5};
     }
 
-    public void setDices(int... dices){
-        this.dices = dices;
-    }
-
     @Deprecated
     public static int chance(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-       return calculateIntegerArrayTotal(dice1, dice2, dice3, dice4, dice5);
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+       return yatzy.chance();
     }
 
     public int chance()
@@ -31,7 +28,8 @@ public class Yatzy {
      * @param dices a list of integer
      * @return the sum of the values given in the list
      */
-    private static int calculateIntegerArrayTotal(int... dices) {
+    private int calculateIntegerArrayTotal(int... dices)
+    {
         return Arrays.stream(dices)
             .reduce(0, Integer::sum);
     }
@@ -39,7 +37,8 @@ public class Yatzy {
     @Deprecated
     public static int yatzy(int... dices)
     {
-        if(Arrays.stream(dices).distinct().count() == 1){
+        if(Arrays.stream(dices).distinct().count() == 1)
+        {
             return 50;
         }
         return 0;
@@ -47,14 +46,11 @@ public class Yatzy {
 
     public int yatzy()
     {
-        if(Arrays.stream(dices).distinct().count() == 1){
+        if(Arrays.stream(dices).distinct().count() == 1)
+        {
             return 50;
         }
         return 0;
-    }
-
-    private static IntStream getIntStream(int... dices) {
-        return Arrays.stream(dices);
     }
 
     /**
@@ -63,58 +59,61 @@ public class Yatzy {
      * @param value the searched value
      * @return the sum of the given value int the given list
      */
-    private static int calculateSumOfSearchedNumberInIntList(IntStream dices, int value) {
+    private int calculateSumOfSearchedNumberInIntList(IntStream dices, int value) {
         return dices
             .filter(i -> i == value)
             .reduce(0, Integer::sum);
     }
 
     @Deprecated
-    public static int ones(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        IntStream dices = getIntStream(dice1, dice2, dice3, dice4, dice5);
-        return calculateSumOfSearchedNumberInIntList(dices, 1);
+    public static int ones(int dice1, int dice2, int dice3, int dice4, int dice5)
+    {
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.ones();
     }
 
     public int ones() {
-        IntStream dices = getIntStream(this.dices);
+        IntStream dices = IntStream.of(this.dices);
         return calculateSumOfSearchedNumberInIntList(dices, 1);
     }
 
     @Deprecated
     public static int twos(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        IntStream dices = getIntStream(dice1,dice2,dice3,dice4,dice5);
-        return  calculateSumOfSearchedNumberInIntList(dices, 2);
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.twos();
     }
     @Deprecated
     public int twos() {
-        IntStream dices = getIntStream(this.dices);
+        IntStream dices = IntStream.of(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 2);
     }
     @Deprecated
-    public static int threes(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        IntStream dices = getIntStream(dice1,dice2,dice3,dice4,dice5);
-        return  calculateSumOfSearchedNumberInIntList(dices, 3);
+    public static int threes(int dice1, int dice2, int dice3, int dice4, int dice5)
+    {
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.threes();
     }
-    public int threes() {
-        IntStream dices = getIntStream(this.dices);
+    public int threes()
+    {
+        IntStream dices = IntStream.of(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 3);
     }
 
     public int fours()
     {
-        IntStream dices = getIntStream(this.dices);
+        IntStream dices = IntStream.of(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 4);
     }
 
     public int fives()
     {
-        IntStream dices = getIntStream(this.dices);
+        IntStream dices = IntStream.of(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 5);
     }
 
     public int sixes()
     {
-        IntStream dices = getIntStream(this.dices);
+        IntStream dices = IntStream.of(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 6);
     }
 
