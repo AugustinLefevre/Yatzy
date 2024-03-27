@@ -137,9 +137,19 @@ public class Yatzy {
             .orElse(0);
     }
 
+    @Deprecated
     public static int twoPair(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.twoPair();
+    }
+
+    public int twoPair()
+    {
+        List<Integer> dices = IntStream.of(this.dices)
+            .boxed()
+            .collect(Collectors.toList());
+
         return dices.stream()
             .filter(i -> Collections.frequency(dices, i) >= 2)
             .distinct()
@@ -147,9 +157,17 @@ public class Yatzy {
             .reduce(0, Integer::sum);
     }
 
+    @Deprecated
     public static int fourOfAKind(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.fourOfAKind();
+    }
+    public int fourOfAKind()
+    {
+        List<Integer> dices = IntStream.of(this.dices)
+            .boxed()
+            .collect(Collectors.toList());
         return dices.stream()
             .filter(i -> Collections.frequency(dices, i) >= 4)
             .map(integer -> integer * 4)
@@ -157,9 +175,18 @@ public class Yatzy {
             .orElse(0);
     }
 
+    @Deprecated
     public static int threeOfAKind(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.threeOfAKind();
+    }
+    public int threeOfAKind()
+    {
+        List<Integer> dices = IntStream.of(this.dices)
+            .boxed()
+            .collect(Collectors.toList());
+
         return dices.stream()
             .filter(i -> Collections.frequency(dices, i) >= 3)
             .map(integer -> integer * 3)
@@ -167,15 +194,19 @@ public class Yatzy {
             .orElse(0);
     }
 
+    @Deprecated
     public static int smallStraight(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
-        for(int i = 1; i < 6 ; i++){
-            if(!dices.contains(i)){
-                return 0;
-            }
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.smallStraight();
+    }
+    public int smallStraight()
+    {
+        if(IntStream.of(dices).distinct().count() == 5 &&
+            IntStream.of(dices).noneMatch(value -> value == 6)){
+                return 15;
         }
-        return 15;
+        return 0;
     }
 
     public static int largeStraight(int dice1, int dice2, int dice3, int dice4, int dice5)
