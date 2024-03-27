@@ -225,9 +225,17 @@ public class Yatzy {
         return 0;
     }
 
+    @Deprecated
     public static int fullHouse(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.fullHouse();
+    }
+    public int fullHouse()
+    {
+        List<Integer> dices = IntStream.of(this.dices)
+            .boxed()
+            .collect(Collectors.toList());
 
         int twoOccurrenceSum = dices.stream()
             .filter(i -> Collections.frequency(dices, i) == 2)
