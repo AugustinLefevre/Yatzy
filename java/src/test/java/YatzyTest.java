@@ -21,7 +21,7 @@ public class YatzyTest {
         assertEquals(16, yatzy.chance());
     }
 
-    @Test public void givenFiveEqualsValue_whenYatzy_thenReturn50() {
+    @Test public void givenFiveEqualsValue_whenStaticYatzy_thenReturn50() {
         int expected = 50;
         int actual = Yatzy.yatzy(4,4,4,4,4);
         assertEquals(expected, actual);
@@ -29,10 +29,18 @@ public class YatzyTest {
         assertEquals(expected, actual);
     }
 
+    @Test public void givenFiveEqualsValue_whenYatzy_thenReturn50() {
+        int expected = 50;
+        Yatzy yatzy = new Yatzy(4,4,4,4,4);
+        assertEquals(expected, yatzy.yatzy());
+        yatzy.setDices(new int[]{6,6,6,6,6});
+        assertEquals(expected, yatzy.yatzy());
+    }
+
     @Test public void givenFiveNonEqualsValue_whenYatzy_thenReturn0() {
         int expected = 0;
-        int actual =  Yatzy.yatzy(6,6,6,6,3);
-        assertEquals(expected, actual);
+        Yatzy yatzy =  new Yatzy(6,6,6,6,3);
+        assertEquals(expected, yatzy.yatzy());
     }
 
     @Test public void test_ones() {

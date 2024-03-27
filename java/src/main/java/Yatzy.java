@@ -36,27 +36,21 @@ public class Yatzy {
             .reduce(0, Integer::sum);
     }
 
+    @Deprecated
     public static int yatzy(int... dices)
     {
-        int[] counts = new int[6];
-        for (int dice : dices){
-            counts[dice-1]++;
-        }
-        if(intArrayContains(counts, 5)){
+        if(Arrays.stream(dices).distinct().count() == 1){
             return 50;
         }
         return 0;
     }
 
-    /**
-     * Verify if an array of integer contains a given value
-     * @param intArray the array to be checked
-     * @param value the value to look for
-     * @return true if the value is present in the array
-     */
-    private static boolean intArrayContains(int[] intArray, int value) {
-        return Arrays.stream(intArray)
-            .anyMatch(v -> v == value);
+    public int yatzy()
+    {
+        if(Arrays.stream(dices).distinct().count() == 1){
+            return 50;
+        }
+        return 0;
     }
 
     public static int ones(int dice1, int dice2, int dice3, int dice4, int dice5) {
