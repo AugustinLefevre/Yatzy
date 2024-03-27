@@ -9,13 +9,10 @@ public class Yatzy {
 
     public Yatzy(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        Arrays.asList(dice1, dice2, dice3, dice4, dice5)
-            .stream()
-            .forEach(integer -> {
-                if (integer < 1 || integer > 6) {
-                    throw new IllegalArgumentException("Dices values are not available");
-                }
-            });
+        if (IntStream.of(dice1, dice2, dice3, dice4, dice5)
+            .anyMatch(integer -> integer < 1 || integer > 6)) {
+            throw new IllegalArgumentException("Dices values are not available");
+        }
 
         dices = new int[]{dice1, dice2, dice3, dice4, dice5};
     }
@@ -248,13 +245,17 @@ public class Yatzy {
             .findFirst()
             .orElse(0);
 
+        if (twoOccurrenceSum == 0) {
+            return 0;
+        }
+
         int threeOccurrenceSum = dices.stream()
             .filter(i -> Collections.frequency(dices, i) == 3)
             .map(integer -> integer * 3)
             .findFirst()
             .orElse(0);
 
-        if (twoOccurrenceSum == 0 && threeOccurrenceSum == 0) {
+        if (threeOccurrenceSum == 0) {
             return 0;
         }
         return twoOccurrenceSum + threeOccurrenceSum;
