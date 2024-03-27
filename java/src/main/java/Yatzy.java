@@ -209,15 +209,20 @@ public class Yatzy {
         return 0;
     }
 
+
+    @Deprecated
     public static int largeStraight(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
-        for(int i = 2; i < 7 ; i++){
-            if(!dices.contains(i)){
-                return 0;
-            }
+        Yatzy yatzy = new Yatzy(dice1, dice2,dice3, dice4, dice5);
+        return yatzy.largeStraight();
+    }
+    public int largeStraight()
+    {
+        if(IntStream.of(dices).distinct().count() == 5 &&
+            IntStream.of(dices).noneMatch(value -> value == 1)){
+            return 20;
         }
-        return 20;
+        return 0;
     }
 
     public static int fullHouse(int dice1, int dice2, int dice3, int dice4, int dice5)
