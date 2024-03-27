@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Yatzy {
@@ -117,9 +118,18 @@ public class Yatzy {
         return  calculateSumOfSearchedNumberInIntList(dices, 6);
     }
 
+    @Deprecated
     public static int scorePair(int dice1, int dice2, int dice3, int dice4, int dice5)
     {
-        List<Integer> dices = Arrays.asList(dice1, dice2, dice3, dice4, dice5);
+        Yatzy yatzy = new Yatzy(dice1, dice2, dice3, dice4, dice5);
+        return yatzy.scorePair();
+    }
+    public int scorePair()
+    {
+        List<Integer> dices = IntStream.of(this.dices)
+            .boxed()
+            .collect(Collectors.toList());
+
         return dices.stream()
             .filter(i -> Collections.frequency(dices, i) > 1)
             .map(integer -> integer * 2)

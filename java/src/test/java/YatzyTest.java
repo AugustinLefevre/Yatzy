@@ -127,11 +127,21 @@ public class YatzyTest {
     }
 
     @Test
-    public void test_onePair()
+    public void test_staticOnePair()
     {
        assertEquals(6, Yatzy.scorePair(3,4,3,5,6));
        assertEquals(10, Yatzy.scorePair(5,3,3,3,5));
        assertEquals(12, Yatzy.scorePair(5,3,6,6,5));
+    }
+    @Test
+    public void test_onePair()
+    {
+        Yatzy yatzy = new Yatzy(3,4,3,5,6);
+        assertEquals(6, yatzy.scorePair());
+        yatzy = new Yatzy(5,3,3,3,5);
+        assertEquals(10, yatzy.scorePair());
+        yatzy = new Yatzy(5,3,6,6,5);
+        assertEquals(12, yatzy.scorePair());
     }
 
     @Test
