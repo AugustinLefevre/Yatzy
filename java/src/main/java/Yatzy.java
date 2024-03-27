@@ -11,7 +11,7 @@ public class Yatzy {
         dices = new int[]{dice1, dice2, dice3, dice4, dice5};
     }
 
-    public void setDices(int[] dices){
+    public void setDices(int... dices){
         this.dices = dices;
     }
 
@@ -53,11 +53,6 @@ public class Yatzy {
         return 0;
     }
 
-    public static int ones(int dice1, int dice2, int dice3, int dice4, int dice5) {
-        IntStream dices = getIntStream(dice1, dice2, dice3, dice4, dice5);
-        return calculateSumOfSearchedNumberInIntList(dices, 1);
-    }
-
     private static IntStream getIntStream(int... dices) {
         return Arrays.stream(dices);
     }
@@ -74,12 +69,34 @@ public class Yatzy {
             .reduce(0, Integer::sum);
     }
 
+    @Deprecated
+    public static int ones(int dice1, int dice2, int dice3, int dice4, int dice5) {
+        IntStream dices = getIntStream(dice1, dice2, dice3, dice4, dice5);
+        return calculateSumOfSearchedNumberInIntList(dices, 1);
+    }
+
+    public int ones() {
+        IntStream dices = getIntStream(this.dices);
+        return calculateSumOfSearchedNumberInIntList(dices, 1);
+    }
+
+    @Deprecated
     public static int twos(int dice1, int dice2, int dice3, int dice4, int dice5) {
         IntStream dices = getIntStream(dice1,dice2,dice3,dice4,dice5);
         return  calculateSumOfSearchedNumberInIntList(dices, 2);
     }
+    @Deprecated
+    public int twos() {
+        IntStream dices = getIntStream(this.dices);
+        return  calculateSumOfSearchedNumberInIntList(dices, 2);
+    }
+    @Deprecated
     public static int threes(int dice1, int dice2, int dice3, int dice4, int dice5) {
         IntStream dices = getIntStream(dice1,dice2,dice3,dice4,dice5);
+        return  calculateSumOfSearchedNumberInIntList(dices, 3);
+    }
+    public int threes() {
+        IntStream dices = getIntStream(this.dices);
         return  calculateSumOfSearchedNumberInIntList(dices, 3);
     }
 

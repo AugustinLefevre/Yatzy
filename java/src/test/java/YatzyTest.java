@@ -17,7 +17,7 @@ public class YatzyTest {
         int expected = 15;
         Yatzy yatzy = new Yatzy(2,3,4,5,1);
         assertEquals(expected, yatzy.chance());
-        yatzy.setDices(new int[]{3,3,4,5,1});
+        yatzy.setDices(3,3,4,5,1);
         assertEquals(16, yatzy.chance());
     }
 
@@ -33,7 +33,7 @@ public class YatzyTest {
         int expected = 50;
         Yatzy yatzy = new Yatzy(4,4,4,4,4);
         assertEquals(expected, yatzy.yatzy());
-        yatzy.setDices(new int[]{6,6,6,6,6});
+        yatzy.setDices(6,6,6,6,6);
         assertEquals(expected, yatzy.yatzy());
     }
 
@@ -43,23 +43,47 @@ public class YatzyTest {
         assertEquals(expected, yatzy.yatzy());
     }
 
-    @Test public void test_ones() {
+    @Test public void test_static0nes() {
         assertEquals(1, Yatzy.ones(1, 2, 3, 4, 5));
         assertEquals(2, Yatzy.ones(1,2,1,4,5));
         assertEquals(0, Yatzy.ones(6,2,2,4,5));
         assertEquals(4, Yatzy.ones(1,2,1,1,1));
     }
-
-    @Test
-    public void test_twos() {
-        assertEquals(4, Yatzy.twos(1,2,3,2,6));
-        assertEquals(10, Yatzy.twos(2,2,2,2,2));
+    @Test public void test_ones() {
+        Yatzy yatzy = new Yatzy(1, 2, 3, 4, 5);
+        assertEquals(1, yatzy.ones());
+        yatzy.setDices(1,2,1,4,5);
+        assertEquals(2, yatzy.ones());
+        yatzy.setDices(6,2,2,4,5);
+        assertEquals(0, yatzy.ones());
+        yatzy.setDices(1,2,1,1,1);
+        assertEquals(4, yatzy.ones());
     }
 
     @Test
-    public void test_threes() {
+    public void test_staticTwos() {
+        assertEquals(4, Yatzy.twos(1,2,3,2,6));
+        assertEquals(10, Yatzy.twos(2,2,2,2,2));
+    }
+    @Test
+    public void test_twos() {
+        Yatzy yatzy = new Yatzy(1,2,3,2,6);
+        assertEquals(4, yatzy.twos());
+        yatzy.setDices(2,2,2,2,2);
+        assertEquals(10, yatzy.twos());
+    }
+
+    @Test
+    public void test_staticThrees() {
         assertEquals(6, Yatzy.threes(1,2,3,2,3));
         assertEquals(12, Yatzy.threes(2,3,3,3,3));
+    }
+    @Test
+    public void test_threes() {
+        Yatzy yatzy = new Yatzy(1,2,3,2,3);
+        assertEquals(6, yatzy.threes());
+        yatzy.setDices(2,3,3,3,3);
+        assertEquals(12, yatzy.threes());
     }
 
     @Test
